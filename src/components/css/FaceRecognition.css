@@ -1,0 +1,34 @@
+.recognition-div{
+    display: flex;
+    justify-content: center;
+}
+
+.main-image-container{
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+    position: relative;
+    max-width: 40%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+ 
+    & img{
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+}
+
+.bounding-box{
+    position: absolute;
+    box-shadow: 0 0 0 3px #149df2 inset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    cursor: pointer ;
+    text-align: center;
+    
+    & h2{
+        position: absolute;
+        color: #149df2;
+    }
+}

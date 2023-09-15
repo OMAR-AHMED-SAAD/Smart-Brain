@@ -1,16 +1,16 @@
 import React from "react";
 import './css/ImageLinkForm.css'
 
-const ImageLinkForm = () => {
+const ImageLinkForm = ({onInputChange,onDetectClick,content}) => {
     return (
         <div className="form-main-container" >
             <h2 className="description">
-                Type a URL of an image and we will detect faces in it.
+                Type a URL of an image and we will detect {content}.
             </h2>
             <div className="search-form" >
-                <input className="url-input" type="text" />
+                <input className="url-input" type="text" onChange={onInputChange} placeholder="Write URL here preferably (.jpg /.jpeg)"/>
                 <div className="sp">
-                    <button className="sparkle-button">
+                    <button className="sparkle-button" onClick={onDetectClick}>
                         <span className="spark"></span>
                         <span className="backdrop"></span>
                         <svg className="sparkle" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

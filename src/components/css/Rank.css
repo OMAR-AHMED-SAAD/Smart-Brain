@@ -1,4 +1,15 @@
+.rank{
+    margin: 15px;
+}
 .rank h2,
 .rank h3 {
     color: aliceblue;
+
+}
+
+.rank h3::before {
+    content: open-quote;
+}
+.rank h2::after {
+    content: close-quote;
 }

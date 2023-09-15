@@ -1,11 +1,10 @@
 .tilt {
     background: linear-gradient(to left, rgb(255, 255, 255), rgba(255, 0, 0, 1));
-    ;
     border-radius: 10px;
     width: 150px;
     height: 150px;
     border: 1px solid;
-    margin-left: 10px;
+    margin-inline: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
@@ -17,7 +16,7 @@
     align-items: center;
 
     & img {
-        width: 100px;
+        width: 67%;
         height: auto;
     }
 }

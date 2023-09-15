@@ -1,3 +1,21 @@
 .App {
   text-align: center;
 }
+
+.logo-rank-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 150px;
+  margin-top:10px;
+  margin-bottom: 10px;
+}
+
+.face-recognition-module{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
