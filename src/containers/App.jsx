@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './css/App.css';
 import Navigation from '../components/Navigation';
 import Logo from '../components/Logo';
@@ -16,7 +16,7 @@ function App() {
   const [boxes, setBoxes] = useState([]);
   const [model, setModel] = useState('face-detection');
   const [celebrities, setCelebrities] = useState([]);
-  const [route, setRoute] = useState('home')
+  const [route, setRoute] = useState('homeOut')
   const PAT = '7a7a19cd600e42818e514bbc757298d8';
   const USER_ID = 'x2oimqxcgzh2';
   const APP_ID = 'my-first-application-nnt4x';
