@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './css/App.css';
 import Navigation from '../components/Navigation';
 import Logo from '../components/Logo';
@@ -17,6 +17,23 @@ function App() {
   const [model, setModel] = useState('face-detection');
   const [celebrities, setCelebrities] = useState([]);
   const [route, setRoute] = useState('homeOut')
+  const [user, setUser] = useState({
+    id: null,
+    email: "",
+    username: "",
+    password: "",
+    entries: 0,
+    Date: null
+  })
+
+
+  useEffect(() => {
+    setInput(null);
+    setImageURl(null);
+    setBoxes([]);
+    setCelebrities([]);
+  }, [route]);
+
   const PAT = '7a7a19cd600e42818e514bbc757298d8';
   const USER_ID = 'x2oimqxcgzh2';
   const APP_ID = 'my-first-application-nnt4x';
@@ -58,7 +75,7 @@ function App() {
     setImageURl(input)
     setBoxes([])
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", getClairfaiJSONResponse(input))
-      .then(response => response.json()).then(calculateBoxes).then(result => setBoxes(result))
+      .then(response => response.json()).then(calculateBoxes).then(result => { setBoxes(result); incrementEntries(); })
       .catch(error => console.log('error', error));
   }
 
@@ -68,7 +85,7 @@ function App() {
     setImageURl(input)
     setBoxes([])
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", getClairfaiJSONResponse(input))
-      .then(response => response.json()).then(resp => { setBoxes(calculateBoxes(resp)); setCelebrities(getCelebrityNames(resp)); })
+      .then(response => response.json()).then(resp => { setBoxes(calculateBoxes(resp)); setCelebrities(getCelebrityNames(resp)); incrementEntries(); })
       .catch(error => console.log('error', error));
   }
 
@@ -98,8 +115,9 @@ function App() {
       <ParticlesBg type="cobweb" color="#ffffff" bg={true} />
       <Navigation route={route} setRoute={setRoute} />
       <div className='logo-rank-container' >
-        <Logo style={{ position: "absolute", left: 0 }} />
-        {route === "home" ? <Rank /> : <></>}
+        {/* <div style={{ display:'inline-block', position: "absolute", left: 0 }}><Logo/></div>  */}
+        <Logo className={"homeLogo"} />
+        <Rank name={user.username} entries={user.entries} route={route} />
       </div>
       <Mode setModel={setModel} />
       {model === "face-detection" ?
@@ -113,16 +131,28 @@ function App() {
   const getSignIn = () => {
     return <>
       <ParticlesBg type="polygon" color="#ffffff" bg={true} />
-      <SignIn formtype={"Sign In"} reference={"Register"} setRoute={setRoute} />
+      <SignIn setUser={setUser} formtype={"Sign In"} reference={"Register"} setRoute={setRoute} />
     </>
   }
   const getSignUp = () => {
     return <>
       <ParticlesBg type="square" color="#ffffff" bg={true} />
-      <SignIn formtype={"Sign Up"} reference={"Go back to login"} setRoute={setRoute} />
+      <SignIn setUser={setUser} formtype={"Sign Up"} reference={"Go back to login"} setRoute={setRoute} />
     </>
   }
 
+  const incrementEntries = () => {
+    if (route !== "home")
+      return;
+    fetch("http://localhost:3000/image", {
+      method: 'put',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: user.id
+      })
+    }).then(response => response.json()).then(count => setUser({ ...user, entries: count }))
+      .catch(err => console.log("error", err))
+  }
   return (
     <div className="App">
       {route.includes("home") ? getHome() : route === "signIn" ? getSignIn() : getSignUp()}

@@ -1,4 +1,3 @@
-import React from "react";
 import './css/Navigation.css';
 
 const Navigation = ({ route, setRoute }) => {

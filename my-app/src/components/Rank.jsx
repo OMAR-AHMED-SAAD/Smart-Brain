@@ -1,18 +1,20 @@
-import React from "react";
 import './css/Rank.css';
 
 
-const Rank = () => {
+const Rank = ({ name, entries, route }) => {
+    const rankContent = () => {
+      return route === "home" ? <> <h3>
+            {`${name}, your entery count is `}
+        </h3>
+            <h2>
+                {`# ${entries}`}
+            </h2></> :
+            <h2>Sign in to show number of enteries</h2>
+    }
     return (
         <div className="rank">
-            <h3>
-                {'Omar, your current rank is '}
-            </h3>
-            <h2>
-                {'#5'}
-            </h2>
+           {rankContent()}
         </div>
-
     );
 }
 

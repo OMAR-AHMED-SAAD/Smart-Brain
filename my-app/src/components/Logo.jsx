@@ -1,11 +1,10 @@
-import React from "react";
 import './css/Logo.css';
 import Tilt from 'react-parallax-tilt';
 import brain from './imgs/brain.png'
 
-const Logo = ({ style }) => {
+const Logo = ({ style ,className }) => {
   return (
-    <Tilt className="tilt" style={style}>
+    <Tilt className={`tilt ${className}`} style={style}>
       <div className="inner-tilt">
         <img src={brain} alt="logo" />
       </div>
