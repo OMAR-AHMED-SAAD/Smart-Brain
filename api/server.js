@@ -10,7 +10,8 @@ import { image, handleImageRecognition } from "./controllers/image.js";
 const db = knex({
   client: "pg",
   connection: {
-    host: "dpg-ck6qfkfq54js7390iuh0-a.frankfurt-postgres.render.com",
+    host:
+      process.env.DB_URL,
     port: 5432,
     user: "users_s79z_user",
     password: "l2mvWEwaEOBXhEaEzTQEGqMKLJJEuDdq",

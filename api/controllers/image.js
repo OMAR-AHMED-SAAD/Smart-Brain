@@ -5,7 +5,7 @@ export const image = (db) => (req, res) => {
     }).catch(err => res.status(400).json('unable to get entries'))
 }
 
-const PAT = '7a7a19cd600e42818e514bbc757298d8';
+const PAT = process.env.PAT_KEY;
 const USER_ID = 'x2oimqxcgzh2';
 const APP_ID = 'my-first-application-nnt4x';
 
