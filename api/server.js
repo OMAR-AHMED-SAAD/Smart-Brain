@@ -1,43 +1,46 @@
 import express from "express";
-import bcrypt, { compareSync, hash } from 'bcrypt-nodejs'
-import cors from 'cors'
+import bcrypt, { compareSync, hash } from "bcrypt-nodejs";
+import cors from "cors";
 import knex from "knex";
 import signin from "./controllers/signin.js";
 import register from "./controllers/register.js";
 import profile from "./controllers/profile.js";
-import {image,handleImageRecognition} from "./controllers/image.js";
+import { image, handleImageRecognition } from "./controllers/image.js";
 
 const db = knex({
-    client: 'pg',
-    connection: {
-        host: '127.0.0.1',
-        port: 5432,
-        //   user : 'your_database_user',
-        //   password : 'your_database_password',
-        database: 'smartbrain'
-    }
+  client: "pg",
+  connection: {
+    host:
+      process.env.DB_URL ||
+      "dpg-ck6qfkfq54js7390iuh0-a.frankfurt-postgres.render.com",
+    port: 5432,
+    user: "users_s79z_user",
+    password: "l2mvWEwaEOBXhEaEzTQEGqMKLJJEuDdq",
+    database: "users_s79z",
+    ssl: { rejectUnauthorized: false },
+  },
 });
 
 const app = express();
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
-app.use(cors())
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
-    res.json("success")
-})
+  res.json("success");
+});
 
-app.post("/signin", signin(db, bcrypt))
+app.post("/signin", signin(db, bcrypt));
 
-app.post("/register", register(db, bcrypt))
+app.post("/register", register(db, bcrypt));
 
-app.get('/profile/:id', profile(db))
+app.get("/profile/:id", profile(db));
 
-app.put('/image', image(db))
+app.put("/image", image(db));
 
-app.post('/image', handleImageRecognition)
+app.post("/image", handleImageRecognition);
 
-const PORT=process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`running on port ${PORT}`);
-})
+  console.log(`running on port ${PORT}`);
+});

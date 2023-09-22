@@ -6,7 +6,6 @@ export const image = (db) => (req, res) => {
 }
 
 const PAT = process.env.PAT_KEY ;
-// '7a7a19cd600e42818e514bbc757298d8'
 const USER_ID = 'x2oimqxcgzh2';
 const APP_ID = 'my-first-application-nnt4x';
 

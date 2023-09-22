@@ -57,7 +57,7 @@ function App() {
       .then(resp => { setBoxes(calculateBoxes(resp)); setCelebrities(getCelebrityNames(resp)); incrementEntries(); })
       .catch(error => console.log('error', error));
   }
-  const callClarfaiAPI = () => fetch("http://localhost:3000/image", { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ modelId: model, url: input }) });
+  const callClarfaiAPI = () => fetch("https://smart-brain-hx13.onrender.com/image", { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ modelId: model, url: input }) });
 
   const calculateBoxes = response => {
     const boundingBoxes = response.outputs[0].data.regions.map(region => region.region_info.bounding_box)
@@ -114,7 +114,7 @@ function App() {
   const incrementEntries = () => {
     if (route !== "home")
       return;
-    fetch("http://localhost:3000/image", {
+    fetch("https://smart-brain-hx13.onrender.com/image", {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
