@@ -28,7 +28,7 @@ const SignIn = ({ formtype, reference, setRoute, setUser }) => {
     }
 
     const fetchApi = (type) => {
-        return fetch(`http://localhost:3000/${type}`, {
+        return fetch(`https://smart-brain-hx13.onrender.com/${type}`, {
             method: "post",
             headers: { 'content-Type': 'application/json' },
             body: JSON.stringify({
