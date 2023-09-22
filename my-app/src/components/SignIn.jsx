@@ -18,7 +18,7 @@ const SignIn = ({ formtype, reference, setRoute, setUser }) => {
         let formTypeCheck = "";
         formtype === "Sign In" ? formTypeCheck = "signin" : formTypeCheck = "register";
         fetchApi(formTypeCheck).then(response => response.json()).then(user => {
-            if (user) {
+            if (user?.id) {
                 setUser(user)
                 setRoute("home")
             }
