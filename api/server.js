@@ -5,7 +5,7 @@ import knex from "knex";
 import signin from "./controllers/signin.js";
 import register from "./controllers/register.js";
 import profile from "./controllers/profile.js";
-import image from "./controllers/image.js";
+import {image,handleImageRecognition} from "./controllers/image.js";
 
 const db = knex({
     client: 'pg',
@@ -34,6 +34,8 @@ app.post("/register", register(db, bcrypt))
 app.get('/profile/:id', profile(db))
 
 app.put('/image', image(db))
+
+app.post('/image', handleImageRecognition)
 
 app.listen(3000, () => {
     console.log("running on port 3000");

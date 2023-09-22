@@ -34,38 +34,7 @@ function App() {
     setCelebrities([]);
   }, [route]);
 
-  const PAT = '7a7a19cd600e42818e514bbc757298d8';
-  const USER_ID = 'x2oimqxcgzh2';
-  const APP_ID = 'my-first-application-nnt4x';
-  const MODEL_ID = model;
-  const getClairfaiJSONResponse = (imgURL) => {
-    const IMAGE_URL = imgURL;
 
-    const raw = JSON.stringify({
-      "user_app_id": {
-        "user_id": USER_ID,
-        "app_id": APP_ID
-      },
-      "inputs": [
-        {
-          "data": {
-            "image": {
-              "url": IMAGE_URL
-            }
-          }
-        }
-      ]
-    });
-
-    return {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Key ' + PAT
-      },
-      body: raw
-    };
-  }
   const onInputChange = (event) => {
     setInput(event.target.value)
   }
@@ -74,8 +43,8 @@ function App() {
       return;
     setImageURl(input)
     setBoxes([])
-    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", getClairfaiJSONResponse(input))
-      .then(response => response.json()).then(calculateBoxes).then(result => { setBoxes(result); incrementEntries(); })
+    callClarfaiAPI().then(response => response.json()).then(calculateBoxes)
+      .then(result => { setBoxes(result); incrementEntries(); })
       .catch(error => console.log('error', error));
   }
 
@@ -84,10 +53,11 @@ function App() {
       return;
     setImageURl(input)
     setBoxes([])
-    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", getClairfaiJSONResponse(input))
-      .then(response => response.json()).then(resp => { setBoxes(calculateBoxes(resp)); setCelebrities(getCelebrityNames(resp)); incrementEntries(); })
+    callClarfaiAPI().then(response => response.json())
+      .then(resp => { setBoxes(calculateBoxes(resp)); setCelebrities(getCelebrityNames(resp)); incrementEntries(); })
       .catch(error => console.log('error', error));
   }
+  const callClarfaiAPI = () => fetch("http://localhost:3000/image", { method: 'post', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ modelId: model, url: input }) });
 
   const calculateBoxes = response => {
     const boundingBoxes = response.outputs[0].data.regions.map(region => region.region_info.bounding_box)
